@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.idp.quotationmanagement.controller.dto.MessageErrorDto;
 import br.idp.quotationmanagement.controller.dto.OperationStockDto;
+import br.idp.quotationmanagement.controller.dto.StockAllDto;
 import br.idp.quotationmanagement.controller.form.OperationStockForm;
 import br.idp.quotationmanagement.controller.repository.QuoteRepository;
 import br.idp.quotationmanagement.model.Operation;
@@ -39,17 +40,20 @@ public class QuoteController {
 	private QuoteRepository quoteRepository;
 
 	Logger log = LoggerFactory.getLogger(QuoteController.class);
+	
+//	public QuoteController() {
+//	}
 
 	@GetMapping("/{stockId}")
-	public ResponseEntity<?> listId(@PathVariable String id) {
-		log.info("Stock Request {}", id);
+	public ResponseEntity<?> listId(@PathVariable String stockId) {
+		log.info("Stock Request {}", stockId);
 
-		Optional<List<Operation>> operations = quoteRepository.findByStockId(id);
+		Optional<List<Operation>> operations = quoteRepository.findByStockId(stockId);
 
-		if (!operations.isPresent()) {
+		if (!(operations.isPresent())) {
 			log.info("Stock id não eh valida");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new MessageErrorDto("stockId", "Nao consta regitrado stock com o id de" + id));
+					.body(new MessageErrorDto("stockId", "Nao consta regitrado stock com o id de" + stockId));
 		}
 		return ResponseEntity.ok(OperationStockDto.convert(operations.get()));
 	}
@@ -65,6 +69,8 @@ public class QuoteController {
 	@Transactional
 	public ResponseEntity<?> create(@RequestBody @Valid OperationStockForm form,
 			UriComponentsBuilder uriComponentsBuilder) {
+		
+		
 
 		if (stockService.getStockId(form.getStockId()) == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -72,6 +78,13 @@ public class QuoteController {
 		}
 
 		Operation operation = form.convertList();
+		
+		if (operation.getQuotes().isEmpty()) {
+			log.warn("Operation received contains zero quotes");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(new MessageErrorDto("quotes", "Campo vazio"));
+		}
+		
 		quoteRepository.save(operation);
 		URI uri = uriComponentsBuilder.path("/quote/{stockId}").buildAndExpand(operation.getStockId()).toUri();
 		return ResponseEntity.created(uri).body(new OperationStockDto(operation));

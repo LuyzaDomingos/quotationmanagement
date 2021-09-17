@@ -19,6 +19,11 @@ public class OperationStockDto {
 		this.stockId = operation.getStockId();
 		operation.getQuotes().forEach(q->quotes.put(q.getTimeNow(), q.getPrice().toString()));
 	}
+	
+
+	public OperationStockDto() {
+	}
+
 
 	public String getId() {
 		return id;

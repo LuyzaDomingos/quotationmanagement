@@ -19,7 +19,7 @@ public class OperationStockForm {
 	private String stockId;
 
 	@NotNull
-	@NotEmpty
+	//@NotEmpty
 	private Map<LocalDate, BigDecimal> quotes;
 
 	public String getStockId() {

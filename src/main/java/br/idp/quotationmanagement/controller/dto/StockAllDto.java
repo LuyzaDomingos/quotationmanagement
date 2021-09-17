@@ -1,5 +1,7 @@
 package br.idp.quotationmanagement.controller.dto;
 
+import java.io.Serializable;
+
 public class StockAllDto {
 
 	private String stockId;
@@ -10,8 +12,9 @@ public class StockAllDto {
 		this.stockId = stockId;
 		this.description = description;
 	}
-	
+
 	public StockAllDto() {
+		super();
 	}
 
 	public String getStockId() {
