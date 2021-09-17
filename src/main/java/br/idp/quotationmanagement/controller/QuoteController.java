@@ -24,8 +24,8 @@ import br.idp.quotationmanagement.controller.dto.MessageErrorDto;
 import br.idp.quotationmanagement.controller.dto.OperationStockDto;
 import br.idp.quotationmanagement.controller.dto.StockAllDto;
 import br.idp.quotationmanagement.controller.form.OperationStockForm;
-import br.idp.quotationmanagement.controller.repository.QuoteRepository;
 import br.idp.quotationmanagement.model.Operation;
+import br.idp.quotationmanagement.repository.QuoteRepository;
 import br.idp.quotationmanagement.service.StockService;
 import lombok.extern.slf4j.Slf4j;
 
