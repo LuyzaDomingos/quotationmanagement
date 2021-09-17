@@ -2,22 +2,29 @@ package br.idp.quotationmanagement.controller.dto;
 
 public class StockAllDto {
 
-	private String id;
+	private String stockId;
+	private String description;
 
+	public StockAllDto(String stockId, String description) {
 
-	public StockAllDto(String id) {
-
-		this.id = id;
-	
+		this.stockId = stockId;
+		this.description = description;
 	}
 
-	public String getId() {
-		return id;
+	public String getStockId() {
+		return stockId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setStockId(String stockId) {
+		this.stockId = stockId;
 	}
 
-	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 }

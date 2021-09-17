@@ -12,21 +12,7 @@ import br.idp.quotationmanagement.model.Quote;
 @Service
 public class QuotesService {
 	
-	QuoteRepository quoteRepository;
 
-	@Autowired
-	public QuotesService(QuoteRepository quoteRepository) {
-		this.quoteRepository = quoteRepository;
-	}
-	
-	
-	public void quoteSave(List<Quote> quotes) {
-		quoteRepository.saveAll(quotes);
-	}
-	
-	public List<Quote> findByStockId(String id){
-		return quoteRepository.findByStockId(id);
-	}
 	
 	
 }

@@ -1,0 +1,6 @@
+INSERT INTO quote(stock_id, "date", "value")  VALUES('petr4', '2019-01-01', 10);
+--INSERT INTO QUOTES(stock_id, d_date, v_value) VALUES('romi3', '2019-01-02', 11);
+--INSERT INTO QUOTES(stock_id, d_date, v_value) VALUES('romi6', '2019-02-03', 14);
+--INSERT INTO QUOTES(stock_id, d_date, v_value) VALUES('vale5', '2019-01-01', 10);
+--INSERT INTO QUOTES(stock_id, d_date, v_value) VALUES('vale5', '2019-01-02', 11);
+--INSERT INTO QUOTES(stock_id, d_date, v_value) VALUES('vale4', '2019-02-05', 14);
