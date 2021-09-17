@@ -26,7 +26,6 @@ public class Operation {
 	private List<Quote> quotes;
 
 	public Operation() {
-		super();
 	}
 
 	public Operation(String stockId) {

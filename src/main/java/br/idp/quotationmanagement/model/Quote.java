@@ -26,6 +26,9 @@ public class Quote {
 		this.timenow = date;
 	}
 	
+	public Quote() {
+	}
+	
 	
 
 	@Override

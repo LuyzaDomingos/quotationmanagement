@@ -68,7 +68,7 @@ public class QuoteController {
 
 		if (stockService.getStockId(form.getStockId()) == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new MessageErrorDto("stockId", "Nao consta regitrado stock com o id de" + form.getStockId()));
+					.body(new MessageErrorDto("stockId", "Nao consta regitrado stock com o id de " + form.getStockId()));
 		}
 
 		Operation operation = form.convertList();

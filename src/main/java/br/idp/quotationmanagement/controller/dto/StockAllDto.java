@@ -10,6 +10,9 @@ public class StockAllDto {
 		this.stockId = stockId;
 		this.description = description;
 	}
+	
+	public StockAllDto() {
+	}
 
 	public String getStockId() {
 		return stockId;

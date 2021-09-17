@@ -6,7 +6,6 @@ public class MessageErrorDto {
 	private String message;
 
 	public MessageErrorDto(String field, String message) {
-		super();
 		this.field = field;
 		this.message = message;
 	}

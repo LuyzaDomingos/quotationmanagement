@@ -12,12 +12,12 @@ public class OperationStockDto {
 	
 	private String id;
 	private String stockId;
-	private Map<LocalDate,String> quoteMap = new HashMap<LocalDate, String>();
+	private Map<LocalDate,String> quotes = new HashMap<LocalDate, String>();
 	
 	public OperationStockDto(Operation operation) {
 		this.id = operation.getUuid().toString();
 		this.stockId = operation.getStockId();
-		operation.getQuotes().forEach(q->quoteMap.put(q.getTimeNow(), q.getPrice().toString()));
+		operation.getQuotes().forEach(q->quotes.put(q.getTimeNow(), q.getPrice().toString()));
 	}
 
 	public String getId() {
@@ -36,12 +36,12 @@ public class OperationStockDto {
 		this.stockId = stockId;
 	}
 
-	public Map<LocalDate, String> getQuoteMap() {
-		return quoteMap;
+	public Map<LocalDate, String> getQuotes() {
+		return quotes;
 	}
 
 	public void setQuoteMap(Map<LocalDate, String> quoteMap) {
-		this.quoteMap = quoteMap;
+		this.quotes = quoteMap;
 	}
 	
 	

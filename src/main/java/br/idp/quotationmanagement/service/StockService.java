@@ -40,7 +40,7 @@ public class StockService {
 	public List<StockAllDto> getStockAll() {
 		log.info("Acessando a API para capturar todos os stock");
 
-		String URL = url + "/stock";
+		String URL = url + "/stock/";
 		StockAllDto[] stockAllDto = restTemplate.getForObject(URL, StockAllDto[].class);
 
 		return Arrays.asList(stockAllDto);
@@ -50,7 +50,7 @@ public class StockService {
 	public StockAllDto getStockId(String id) {
 		log.info("Acessando a API para capturar um stock especifico");
 
-		String URL = url + "/stock" + id;
+		String URL = url + "/stock/" + id;
 		return restTemplate.getForObject(URL, StockAllDto.class);
 
 	}
