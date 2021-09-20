@@ -1,13 +1,11 @@
 package br.idp.quotationmanagement.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.CoreMatchers.containsString;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.aspectj.lang.annotation.Before;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +22,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import br.idp.quotationmanagement.controller.dto.StockAllDto;
 import br.idp.quotationmanagement.service.StockService;
-import jdk.jfr.ContentType;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,10 +30,9 @@ class QuoteControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
-	
-	
+
 	private List<StockAllDto> stockDtoList;
-	
+
 	@MockBean
 	private StockService stockService;
 
@@ -63,8 +59,8 @@ class QuoteControllerTest {
 		quoteBody.put("stockId", "vale5");
 		quoteBody.put("quotes", quote);
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/quote").content(quoteBody.toString()).contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isCreated())
+		mockMvc.perform(MockMvcRequestBuilders.post("/quote").content(quoteBody.toString())
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isCreated())
 				.andExpect(MockMvcResultMatchers.content().string(containsString("id")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("stockId")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("quotes")))
@@ -75,19 +71,16 @@ class QuoteControllerTest {
 	@Test
 	public void returnAllOperations() throws Exception {
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/quote"))
-				.andExpect(MockMvcResultMatchers.status().isOk())
+		mockMvc.perform(MockMvcRequestBuilders.get("/quote")).andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string(containsString("id")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("stockId")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("quotes")));
-				
+
 	}
-	
 
 	public void returnOperationsId() throws Exception {
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/quote/vale5"))
-				.andExpect(MockMvcResultMatchers.status().isOk())
+		mockMvc.perform(MockMvcRequestBuilders.post("/quote/vale5")).andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string(containsString("id")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("stockId")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("quotes")));

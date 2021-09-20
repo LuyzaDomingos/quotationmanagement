@@ -1,7 +1,5 @@
 package br.idp.quotationmanagement.controller.dto;
 
-import java.io.Serializable;
-
 public class StockAllDto {
 
 	private String stockId;

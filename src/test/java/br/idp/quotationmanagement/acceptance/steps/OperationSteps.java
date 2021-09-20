@@ -11,7 +11,6 @@ import java.util.Optional;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 
 import br.idp.quotationmanagement.controller.QuoteController;
@@ -23,7 +22,6 @@ import br.idp.quotationmanagement.service.StockService;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import lombok.experimental.PackagePrivate;
 
 public class OperationSteps {
 

@@ -1,9 +1,8 @@
 package br.idp.quotationmanagement.service;
 
 import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -15,9 +14,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.idp.quotationmanagement.controller.QuoteController;
 import br.idp.quotationmanagement.controller.dto.StockAllDto;
@@ -59,16 +55,15 @@ public class StockService {
 
 		HttpHeaders titleHeaders = new HttpHeaders();
 		titleHeaders.setContentType(MediaType.APPLICATION_JSON);
-		
+
 		JSONObject dataJsonObject = new JSONObject();
-		
+
 		dataJsonObject.put("host", "localhost");
 		dataJsonObject.put("port", "8081");
-		
+
 		HttpEntity<String> request = new HttpEntity<String>(dataJsonObject.toString(), titleHeaders);
 		restTemplate.postForObject(url + "/notification", request, String.class);
 
 	}
-	
 
 }

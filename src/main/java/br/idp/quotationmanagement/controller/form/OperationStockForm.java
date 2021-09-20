@@ -2,8 +2,7 @@ package br.idp.quotationmanagement.controller.form;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Map;
 
 import javax.validation.constraints.NotEmpty;
@@ -19,7 +18,7 @@ public class OperationStockForm {
 	private String stockId;
 
 	@NotNull
-	//@NotEmpty
+	// @NotEmpty
 	private Map<LocalDate, BigDecimal> quotes;
 
 	public String getStockId() {
@@ -39,9 +38,9 @@ public class OperationStockForm {
 	}
 
 	public Quoteop convertList() {
-		
+
 		Quoteop quoteop = new Quoteop(stockId);
-		quotes.forEach((timeNow,price) -> quoteop.addQuote(new Quote(quoteop, timeNow, price)));
+		quotes.forEach((timeNow, price) -> quoteop.addQuote(new Quote(quoteop, timeNow, price)));
 		return quoteop;
 	}
 

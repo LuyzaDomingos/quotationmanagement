@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import br.idp.quotationmanagement.model.Quoteop;
-import br.idp.quotationmanagement.model.Quote;
 public class OperationStockDto {
 	
 	private String id;

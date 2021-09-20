@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.idp.quotationmanagement.controller.dto.MessageErrorDto;
 import br.idp.quotationmanagement.controller.dto.OperationStockDto;
-import br.idp.quotationmanagement.controller.dto.StockAllDto;
 import br.idp.quotationmanagement.controller.form.OperationStockForm;
 import br.idp.quotationmanagement.model.Quoteop;
 import br.idp.quotationmanagement.repository.QuoteRepository;
@@ -42,7 +41,7 @@ public class QuoteController {
 	Logger log = LoggerFactory.getLogger(QuoteController.class);
 
 	public QuoteController(StockService stockService, QuoteRepository quoteRepository) {
-		
+
 		this.stockService = stockService;
 		this.quoteRepository = quoteRepository;
 	}
