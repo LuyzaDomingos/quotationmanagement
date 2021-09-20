@@ -11,11 +11,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -24,8 +26,9 @@ import br.idp.quotationmanagement.controller.dto.StockAllDto;
 import br.idp.quotationmanagement.service.StockService;
 
 @SpringBootTest
+@ContextConfiguration(classes = SpringBootApplication.class)
 @AutoConfigureMockMvc
-@ActiveProfiles("testing")
+//@ActiveProfiles("testing")
 class QuoteControllerTest {
 
 	@Autowired
@@ -80,7 +83,7 @@ class QuoteControllerTest {
 
 	public void returnOperationsId() throws Exception {
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/quote/vale5")).andExpect(MockMvcResultMatchers.status().isOk())
+		mockMvc.perform(MockMvcRequestBuilders.get("/quote/vale5")).andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string(containsString("id")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("stockId")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("quotes")));
