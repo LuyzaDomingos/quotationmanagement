@@ -40,6 +40,7 @@ public class QuoteController {
 
 	Logger log = LoggerFactory.getLogger(QuoteController.class);
 
+@Autowired
 	public QuoteController(StockService stockService, QuoteRepository quoteRepository) {
 
 		this.stockService = stockService;
@@ -73,6 +74,7 @@ public class QuoteController {
 	public ResponseEntity<?> create(@RequestBody @Valid OperationStockForm form,
 			UriComponentsBuilder uriComponentsBuilder) {
 
+//		System.out.println("ESTA AQUIIIIIIIIIIIIIIIIIIIIIIIIIII" + form.getStockId());
 		if (stockService.getStockId(form.getStockId()) == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
 					new MessageErrorDto("stockId", "Nao existe stock registrado com o id de " + form.getStockId()));

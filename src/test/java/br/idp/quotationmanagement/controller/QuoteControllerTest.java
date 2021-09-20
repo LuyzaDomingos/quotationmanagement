@@ -1,14 +1,16 @@
 package br.idp.quotationmanagement.controller;
 
-//import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.CoreMatchers.containsString;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,7 +30,7 @@ import br.idp.quotationmanagement.service.StockService;
 @SpringBootTest
 @ContextConfiguration(classes = SpringBootApplication.class)
 @AutoConfigureMockMvc
-//@ActiveProfiles("testing")
+@ActiveProfiles("testing")
 class QuoteControllerTest {
 
 	@Autowired
@@ -51,6 +53,8 @@ class QuoteControllerTest {
 	public void creatingNewOperation() throws Exception {
 
 		Mockito.when(stockService.getStockId("vale5")).thenReturn(stockDtoList.get(0));
+		
+		URI uri = new URI("/quote");
 
 		JSONObject quote = new JSONObject();
 		JSONObject quoteBody = new JSONObject();
@@ -62,7 +66,7 @@ class QuoteControllerTest {
 		quoteBody.put("stockId", "vale5");
 		quoteBody.put("quotes", quote);
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/quote").content(quoteBody.toString())
+		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(quoteBody.toString())
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isCreated())
 				.andExpect(MockMvcResultMatchers.content().string(containsString("id")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("stockId")))
