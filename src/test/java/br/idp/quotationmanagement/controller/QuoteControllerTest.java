@@ -3,6 +3,7 @@ package br.idp.quotationmanagement.controller;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.CoreMatchers.containsString;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,10 @@ class QuoteControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@MockBean
+	
 	private List<StockAllDto> stockDtoList;
+	
+	@MockBean
 	private StockService stockService;
 
 	@BeforeEach
@@ -48,7 +51,7 @@ class QuoteControllerTest {
 	@Test
 	public void creatingNewOperation() throws Exception {
 
-		Mockito.when(stockService.getStockAll()).thenReturn(stockDtoList);
+		Mockito.when(stockService.getStockId("vale5")).thenReturn(stockDtoList.get(0));
 
 		JSONObject quote = new JSONObject();
 		JSONObject quoteBody = new JSONObject();
@@ -65,22 +68,21 @@ class QuoteControllerTest {
 				.andExpect(MockMvcResultMatchers.content().string(containsString("id")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("stockId")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("quotes")))
-				.andExpect(MockMvcResultMatchers.content().string(containsString("2021-08-01")));
+				.andExpect(MockMvcResultMatchers.content().string(containsString("2021-09-20")));
 
 	}
 
 	@Test
 	public void returnAllOperations() throws Exception {
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/quote"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/quote"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string(containsString("id")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("stockId")))
 				.andExpect(MockMvcResultMatchers.content().string(containsString("quotes")));
 				
-				
-
 	}
+	
 
 	public void returnOperationsId() throws Exception {
 

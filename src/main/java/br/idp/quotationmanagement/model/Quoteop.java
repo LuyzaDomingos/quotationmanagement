@@ -14,21 +14,21 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public class Operation {
+public class Quoteop {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private UUID uuid;
 	private String stockId;
-	@OneToMany(mappedBy = "operation", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "quoteop", cascade = CascadeType.ALL)
 	private List<Quote> quotes;
 
-	public Operation() {
+	public Quoteop() {
 	}
 
-	public Operation(String stockId) {
+	public Quoteop(String stockId) {
 		this.uuid = UUID.randomUUID();
 		this.stockId = stockId;
 		this.quotes = new ArrayList<>();
@@ -51,7 +51,7 @@ public class Operation {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Operation other = (Operation) obj;
+		Quoteop other = (Quoteop) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

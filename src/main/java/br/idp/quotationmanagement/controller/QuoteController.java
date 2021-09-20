@@ -24,7 +24,7 @@ import br.idp.quotationmanagement.controller.dto.MessageErrorDto;
 import br.idp.quotationmanagement.controller.dto.OperationStockDto;
 import br.idp.quotationmanagement.controller.dto.StockAllDto;
 import br.idp.quotationmanagement.controller.form.OperationStockForm;
-import br.idp.quotationmanagement.model.Operation;
+import br.idp.quotationmanagement.model.Quoteop;
 import br.idp.quotationmanagement.repository.QuoteRepository;
 import br.idp.quotationmanagement.service.StockService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,29 +40,32 @@ public class QuoteController {
 	private QuoteRepository quoteRepository;
 
 	Logger log = LoggerFactory.getLogger(QuoteController.class);
-	
-//	public QuoteController() {
-//	}
+
+	public QuoteController(StockService stockService, QuoteRepository quoteRepository) {
+		
+		this.stockService = stockService;
+		this.quoteRepository = quoteRepository;
+	}
 
 	@GetMapping("/{stockId}")
 	public ResponseEntity<?> listId(@PathVariable("stockId") String stockId) {
 		log.info("Stock Request {}", stockId);
 
-		Optional<List<Operation>> operations = quoteRepository.findByStockId(stockId);
+		Optional<List<Quoteop>> quoteops = quoteRepository.findByStockId(stockId);
 
-		if(operations.isEmpty()) {
+		if (quoteops.isEmpty()) {
 			log.info("Stock id não foi encontrado");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
 					.body(new MessageErrorDto("stockId", "Nao foi encontrado stock com o id de" + stockId));
 		}
-		return ResponseEntity.ok(OperationStockDto.convert(operations.get()));
-		
+		return ResponseEntity.ok(OperationStockDto.convert(quoteops.get()));
+
 	}
 
 	@GetMapping
 	public ResponseEntity<?> listAll() {
-		List<Operation> operations = quoteRepository.findAll();
-		return ResponseEntity.ok(OperationStockDto.convert(operations));
+		List<Quoteop> quoteops = quoteRepository.findAll();
+		return ResponseEntity.ok(OperationStockDto.convert(quoteops));
 
 	}
 
@@ -70,25 +73,22 @@ public class QuoteController {
 	@Transactional
 	public ResponseEntity<?> create(@RequestBody @Valid OperationStockForm form,
 			UriComponentsBuilder uriComponentsBuilder) {
-		
-		
 
-		if(stockService.getStockId(form.getStockId()) == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new MessageErrorDto("stockId", "Nao existe stock registrado com o id de " + form.getStockId()));
+		if (stockService.getStockId(form.getStockId()) == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+					new MessageErrorDto("stockId", "Nao existe stock registrado com o id de " + form.getStockId()));
 		}
 
-		Operation operation = form.convertList();
-		
-		if(operation.getQuotes().isEmpty()) {
-			log.warn("Operation received contains zero quotes");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new MessageErrorDto("quotes", "Campo vazio"));
+		Quoteop quoteop = form.convertList();
+
+		if (quoteop.getQuotes().isEmpty()) {
+			log.warn("Quoteop received contains zero quotes");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageErrorDto("quotes", "Campo vazio"));
 		}
-		
-		quoteRepository.save(operation);
-		URI uri = uriComponentsBuilder.path("/quote/{stockId}").buildAndExpand(operation.getStockId()).toUri();
-		return ResponseEntity.created(uri).body(new OperationStockDto(operation));
+
+		quoteRepository.save(quoteop);
+		URI uri = uriComponentsBuilder.path("/quote/{stockId}").buildAndExpand(quoteop.getStockId()).toUri();
+		return ResponseEntity.created(uri).body(new OperationStockDto(quoteop));
 
 	}
 

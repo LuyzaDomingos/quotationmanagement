@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import br.idp.quotationmanagement.model.Operation;
+import br.idp.quotationmanagement.model.Quoteop;
 import br.idp.quotationmanagement.model.Quote;
 
 public class OperationStockForm {
@@ -38,11 +38,11 @@ public class OperationStockForm {
 		this.quotes = quotes;
 	}
 
-	public Operation convertList() {
+	public Quoteop convertList() {
 		
-		Operation operation = new Operation(stockId);
-		quotes.forEach((timeNow,price) -> operation.addQuote(new Quote(operation, timeNow, price)));
-		return operation;
+		Quoteop quoteop = new Quoteop(stockId);
+		quotes.forEach((timeNow,price) -> quoteop.addQuote(new Quote(quoteop, timeNow, price)));
+		return quoteop;
 	}
 
 }

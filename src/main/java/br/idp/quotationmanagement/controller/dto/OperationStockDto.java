@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import br.idp.quotationmanagement.model.Operation;
+import br.idp.quotationmanagement.model.Quoteop;
 import br.idp.quotationmanagement.model.Quote;
 public class OperationStockDto {
 	
@@ -14,10 +14,10 @@ public class OperationStockDto {
 	private String stockId;
 	private Map<LocalDate,String> quotes = new HashMap<LocalDate, String>();
 	
-	public OperationStockDto(Operation operation) {
-		this.id = operation.getUuid().toString();
-		this.stockId = operation.getStockId();
-		operation.getQuotes().forEach(q->quotes.put(q.getTimeNow(), q.getPrice().toString()));
+	public OperationStockDto(Quoteop quoteop) {
+		this.id = quoteop.getUuid().toString();
+		this.stockId = quoteop.getStockId();
+		quoteop.getQuotes().forEach(q->quotes.put(q.getTimeNow(), q.getPrice().toString()));
 	}
 	
 
@@ -50,8 +50,8 @@ public class OperationStockDto {
 	}
 	
 	
-	public static List<OperationStockDto> convert(List<Operation> operation){
-		return operation.stream().map(OperationStockDto::new).collect(Collectors.toList());
+	public static List<OperationStockDto> convert(List<Quoteop> quoteop){
+		return quoteop.stream().map(OperationStockDto::new).collect(Collectors.toList());
 	}
 	
 	

@@ -16,12 +16,12 @@ public class Quote {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
-	private Operation operation;
+	private Quoteop quoteop;
 	private BigDecimal price;
 	private LocalDate timenow;
 
-	public Quote(Operation operation,LocalDate date, BigDecimal value) {
-		this.operation = operation;
+	public Quote(Quoteop quoteop,LocalDate date, BigDecimal value) {
+		this.quoteop = quoteop;
 		this.price = value;
 		this.timenow = date;
 	}

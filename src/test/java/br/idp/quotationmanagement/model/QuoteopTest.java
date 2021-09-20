@@ -9,15 +9,15 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-class OperationTest {
+class QuoteopTest {
 
 	@Test
 	public void creatingOperation() {
-		Operation operation = new Operation("vale5");
+		Quoteop quoteop = new Quoteop("vale5");
 
 		List<Quote> quotes = new ArrayList<>();
-		quotes.add(new Quote(operation, LocalDate.of(2021, 9, 10), new BigDecimal("30")));
-		quotes.add(new Quote(operation, LocalDate.of(2021, 8, 29), new BigDecimal("5000")));
+		quotes.add(new Quote(quoteop, LocalDate.of(2021, 9, 10), new BigDecimal("30")));
+		quotes.add(new Quote(quoteop, LocalDate.of(2021, 8, 29), new BigDecimal("5000")));
 
 		assertEquals(quotes.size(), 2);
 		assertEquals(quotes.get(0).getTimeNow(), LocalDate.of(2021, 9, 10));
