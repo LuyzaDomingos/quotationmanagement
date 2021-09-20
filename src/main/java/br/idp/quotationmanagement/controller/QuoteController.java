@@ -45,17 +45,18 @@ public class QuoteController {
 //	}
 
 	@GetMapping("/{stockId}")
-	public ResponseEntity<?> listId(@PathVariable String stockId) {
+	public ResponseEntity<?> listId(@PathVariable("stockId") String stockId) {
 		log.info("Stock Request {}", stockId);
 
 		Optional<List<Operation>> operations = quoteRepository.findByStockId(stockId);
 
-		if (!(operations.isPresent())) {
-			log.info("Stock id não eh valida");
+		if(operations.isEmpty()) {
+			log.info("Stock id não foi encontrado");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new MessageErrorDto("stockId", "Nao consta regitrado stock com o id de" + stockId));
+					.body(new MessageErrorDto("stockId", "Nao foi encontrado stock com o id de" + stockId));
 		}
 		return ResponseEntity.ok(OperationStockDto.convert(operations.get()));
+		
 	}
 
 	@GetMapping
@@ -72,14 +73,14 @@ public class QuoteController {
 		
 		
 
-		if (stockService.getStockId(form.getStockId()) == null) {
+		if(stockService.getStockId(form.getStockId()) == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new MessageErrorDto("stockId", "Nao consta regitrado stock com o id de " + form.getStockId()));
+					.body(new MessageErrorDto("stockId", "Nao existe stock registrado com o id de " + form.getStockId()));
 		}
 
 		Operation operation = form.convertList();
 		
-		if (operation.getQuotes().isEmpty()) {
+		if(operation.getQuotes().isEmpty()) {
 			log.warn("Operation received contains zero quotes");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(new MessageErrorDto("quotes", "Campo vazio"));
