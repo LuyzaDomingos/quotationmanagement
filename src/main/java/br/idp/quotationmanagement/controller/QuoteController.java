@@ -74,7 +74,7 @@ public class QuoteController {
 	public ResponseEntity<?> create(@RequestBody @Valid OperationStockForm form,
 			UriComponentsBuilder uriComponentsBuilder) {
 
-//		System.out.println("ESTA AQUIIIIIIIIIIIIIIIIIIIIIIIIIII" + form.getStockId());
+
 		if (stockService.getStockId(form.getStockId()) == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
 					new MessageErrorDto("stockId", "Nao existe stock registrado com o id de " + form.getStockId()));
@@ -83,7 +83,6 @@ public class QuoteController {
 		Quoteop quoteop = form.convertList();
 
 		if (quoteop.getQuotes().isEmpty()) {
-			log.warn("Quoteop received contains zero quotes");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageErrorDto("quotes", "Campo vazio"));
 		}
 

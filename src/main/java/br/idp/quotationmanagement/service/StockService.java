@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StockService {
 
-	// private String url = "http://localhost:8080";
+//	 private String url = "http://localhost:8080";
 
 	@Value("${stock-manager.url}")
 	private String url;
